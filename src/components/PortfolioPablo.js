@@ -8,6 +8,10 @@ const PortfolioArtiste = () => {
     window.open('https://www.instagram.com/pablo_ponchito', '_blank');
   };
 
+  const openSoundcloud = () => {
+    window.open('https://soundcloud.com/pabloponchito', '_blank');
+  };
+
   return (
     <div className="min-h-screen bg-gray-50">
       {/* En-tête */}
@@ -42,14 +46,22 @@ const PortfolioArtiste = () => {
                   Contact
                 </button>
               </div>
-              {/* Icône Instagram */}
-              <button 
-                onClick={openInstagram}
-                className="p-2 rounded-full hover:bg-gray-100 text-gray-600 hover:text-pink-600 transition-colors"
-                aria-label="Instagram"
-              >
-                <Instagram className="w-5 h-5" />
-              </button>
+              <div className="flex space-x-2">
+                <button 
+                  onClick={openInstagram}
+                  className="p-2 rounded-full hover:bg-gray-100 text-gray-600 hover:text-pink-600 transition-colors"
+                  aria-label="Instagram"
+                >
+                  <Instagram className="w-5 h-5" />
+                </button>
+                <button 
+                  onClick={openSoundcloud}
+                  className="p-2 rounded-full hover:bg-gray-100 text-gray-600 hover:text-orange-500 transition-colors"
+                  aria-label="Soundcloud"
+                >
+                  <Music className="w-5 h-5" />
+                </button>
+              </div>
             </div>
           </nav>
         </div>
@@ -67,10 +79,17 @@ const PortfolioArtiste = () => {
                   Bienvenue dans mon univers créatif où musique et art visuel se rencontrent. 
                   Je crée des expériences uniques à travers mes compositions musicales et mes œuvres artistiques.
                 </p>
-                <div className="flex items-center space-x-6">
-                  <button className="bg-blue-600 text-white px-6 py-3 rounded-md hover:bg-blue-700 flex items-center space-x-2">
+                <div className="flex flex-wrap items-center gap-4">
+                  <button onClick={() => setActiveTab('musique')} className="bg-blue-600 text-white px-6 py-3 rounded-md hover:bg-blue-700 flex items-center space-x-2">
                     <Music className="w-5 h-5" />
                     <span>Découvrir ma musique</span>
+                  </button>
+                  <button 
+                    onClick={openSoundcloud}
+                    className="flex items-center space-x-2 text-gray-600 hover:text-orange-500 transition-colors"
+                  >
+                    <Music className="w-5 h-5" />
+                    <span>Écouter sur Soundcloud</span>
                   </button>
                   <button 
                     onClick={openInstagram}
@@ -89,33 +108,43 @@ const PortfolioArtiste = () => {
                 />
                 <div className="absolute -bottom-6 -left-6 bg-white p-4 rounded-lg shadow-lg">
                   <p className="font-medium">Dernière création :</p>
-                  <p className="text-gray-600">Album "Titre" - 2024</p>
+                  <p className="text-gray-600">"A summer with oud" - 2024</p>
                 </div>
               </div>
             </div>
+          </section>
+        )}
 
-            {/* Section Réseaux Sociaux */}
-            <div className="mt-20 py-8 border-t border-gray-200">
-              <div className="text-center">
-                <h3 className="text-xl font-semibold mb-6">Suivez mon actualité</h3>
-                <div className="flex justify-center items-center space-x-8">
-                  <button 
-                    onClick={openInstagram}
-                    className="flex flex-col items-center space-y-2 group"
-                  >
-                    <div className="p-4 rounded-full bg-gradient-to-br from-purple-600 to-pink-500 text-white">
-                      <Instagram className="w-6 h-6" />
-                    </div>
-                    <span className="text-sm text-gray-600 group-hover:text-pink-600">@pablo_ponchito</span>
-                  </button>
-                  <button 
-                    onClick={() => setActiveTab('contact')}
-                    className="flex flex-col items-center space-y-2 group"
-                  >
-                    <div className="p-4 rounded-full bg-blue-600 text-white">
-                      <Mail className="w-6 h-6" />
-                    </div>
-                    <span className="text-sm text-gray-600 group-hover:text-blue-600">Me contacter</span>
+        {activeTab === 'musique' && (
+          <section className="space-y-12 py-12">
+            <h2 className="text-3xl font-bold text-gray-900">Ma Musique</h2>
+            
+            {/* Lecteur Soundcloud */}
+            <div className="bg-white p-6 rounded-lg shadow-lg">
+              <h3 className="text-xl font-semibold mb-4">Dernière sortie</h3>
+              <div className="w-full">
+                <iframe 
+                  width="100%" 
+                  height="166" 
+                  scrolling="no" 
+                  frameBorder="no" 
+                  allow="autoplay" 
+                  src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1906908131&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"
+                  className="rounded"
+                ></iframe>
+              </div>
+            </div>
+
+            {/* Autres morceaux */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h3 className="text-lg font-semibold">A summer with oud</h3>
+                    <p className="text-gray-600">Single / 2024</p>
+                  </div>
+                  <button onClick={openSoundcloud} className="p-2 rounded-full hover:bg-gray-100">
+                    <ExternalLink className="w-6 h-6" />
                   </button>
                 </div>
               </div>
@@ -124,25 +153,6 @@ const PortfolioArtiste = () => {
         )}
 
         {/* Les autres sections restent identiques */}
-        {activeTab === 'musique' && (
-          <section className="space-y-8 py-12">
-            <h2 className="text-3xl font-bold text-gray-900">Ma Musique</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <h3 className="text-lg font-semibold">Titre de la chanson</h3>
-                    <p className="text-gray-600">Album / Année</p>
-                  </div>
-                  <button className="p-2 rounded-full hover:bg-gray-100">
-                    <Play className="w-6 h-6" />
-                  </button>
-                </div>
-              </div>
-            </div>
-          </section>
-        )}
-
         {activeTab === 'art' && (
           <section className="space-y-8 py-12">
             <h2 className="text-3xl font-bold text-gray-900">Mes Œuvres</h2>
